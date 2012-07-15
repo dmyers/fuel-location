@@ -1,6 +1,6 @@
 <?php
 
-namespace Cities;
+namespace Location;
 
 class Model_Country extends \Orm\Model
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cities;
+namespace Location;
 
 class Model_State extends \Orm\Model
 {
