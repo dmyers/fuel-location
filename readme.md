@@ -22,19 +22,29 @@ Then you you need to initialize and update the submodule:
 
 Alternatively you can download it and extract it into `fuel/packages/cities/`.
 
+## Setup
+
+### Run migrations
+
+Run the migrations which will create the table structure in your database.
+
+	$ php oil r migrate --packages=cities
+
+### Run task
+
+Run the oil task which will download and import the [MaxMind](http://maxmind.com) cities databases into your databases.
+
+	$ php oil r cities
+
 ## Usage
 
-Simply use Fuel's built in Assets (or [Casset](https://github.com/canton7/fuelphp-casset/)), Form, Pagination, and Validation Errors classes as usual and they will use Twitter Bootstrap's css classnames for the styling. We have also included our own Alerts and Breadcrumbs classes with examples below.
-
 ```php
-Alerts::success('Well done! You successfully read this important alert message.');
-Alerts::danger('Oh snap! Change a few things up and try submitting again.');
-Alerts::render();
+$city = Model_CountryStateCity::find_using_slug('us', 'ca', 'san-francisco');
+```
 
-Breadcrumbs::add('/', 'Home');
-Breadcrumbs::add('library', 'Library');
-Breadcrumbs::active('Data');
-Breadcrumbs::render();
+Or if using the [Fuel-Geolocate](https://github.com/dmyers/fuel-geolocate), you can simply get the visitor's location by their IP.
+```php
+$city = Model_CountryStateCity::find_using_ip();
 ```
 
 ## Updates
