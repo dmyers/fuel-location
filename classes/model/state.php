@@ -2,9 +2,9 @@
 
 namespace Cities;
 
-class Model_CountryState extends \Orm\Model
+class Model_State extends \Orm\Model
 {
-	protected static $_table_name = 'country_states';
+	protected static $_table_name = 'states';
 
 	protected static $_properties = array(
 		'id',
@@ -16,7 +16,7 @@ class Model_CountryState extends \Orm\Model
 
 	protected static $_has_many = array(
 		'cities' => array(
-			'model_to' => 'Model_CountryStateCity',
+			'model_to' => 'Model_City',
 			'key_from' => 'id',
 			'key_to'   => 'state_id',
 		),

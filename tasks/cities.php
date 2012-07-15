@@ -6,8 +6,8 @@ class Cities
 	public static function run()
 	{
 		self::countries();
-		self::country_states();
-		self::country_state_cities();
+		self::states();
+		self::cities();
 		\Cli::write('Done!', 'green');
 	}
 
@@ -69,7 +69,7 @@ class Cities
 		}
 	}
 
-	public static function country_states()
+	public static function states()
 	{
 		\Cli::write('Starting country states download', 'green');
 
@@ -136,7 +136,7 @@ class Cities
 				'name'         => $name,
 			);
 			
-			\DB::insert('country_states')
+			\DB::insert('states')
 				->set($state)
 				->execute();
 		}
@@ -197,7 +197,7 @@ class Cities
 
 			\Cli::write(sprintf('Updating %s (%s)', $name, $state_code), 'green');
 			
-			\DB::update('country_states')
+			\DB::update('states')
 				->where('country_code', $country_code)
 				->where('name', $name)
 				->value('code', $state_code)
@@ -205,7 +205,7 @@ class Cities
 		}
 	}
 
-	public static function country_state_cities()
+	public static function cities()
 	{
 		\Cli::write('Starting country state cities download', 'green');
 
@@ -268,7 +268,7 @@ class Cities
 			}
 
 			$state = \DB::select('id')
-				->from('country_states')
+				->from('states')
 				->where('country_code', $country_code)
 				->where('code', $state_code)
 				->limit(1)
@@ -284,7 +284,7 @@ class Cities
 			$slug = \Inflector::friendly_title($name, '-', true);
 
 			$city = \DB::select('id')
-				->from('country_state_cities')
+				->from('cities')
 				->where('country_code', $country_code)
 				->where('state_code', $state_code)
 				->where('slug', $slug)
@@ -310,13 +310,13 @@ class Cities
 				'slug'         => $slug,
 			);
 			
-			\DB::insert('country_state_cities')
+			\DB::insert('cities')
 				->set($city)
 				->execute();
 		}
 	}
 
-	public static function country_states_geonames()
+	public static function states_geonames()
 	{
 		\Cli::write('Starting country states download', 'green');
 
@@ -370,7 +370,7 @@ class Cities
 				'name'         => $name,
 			);
 			
-			\DB::insert('country_states')
+			\DB::insert('states')
 				->set($state)
 				->execute();
 		}

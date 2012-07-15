@@ -39,12 +39,12 @@ Run the oil task which will download and import the [MaxMind](http://maxmind.com
 ## Usage
 
 ```php
-$city = Model_CountryStateCity::find_using_slug('us', 'ca', 'san-francisco');
+$city = Model_City::find_using_slug('us', 'ca', 'san-francisco');
 ```
 
 Or if using the [Geolocate](https://github.com/dmyers/fuel-geolocate) package, you can simply get the visitor's location by their IP.
 ```php
-$city = Model_CountryStateCity::find_using_ip();
+$city = Model_City::find_using_ip();
 ```
 
 ## Updates

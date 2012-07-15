@@ -2,11 +2,11 @@
 
 namespace Fuel\Migrations;
 
-class Create_Country_State_Cities
+class Create_cities
 {
 	function up()
 	{
-		\DBUtil::create_table('country_state_cities', array(
+		\DBUtil::create_table('cities', array(
 			'id' => array(
 				'type'       => 'int',
 				'constraint' => 10,
@@ -37,11 +37,11 @@ class Create_Country_State_Cities
 			),
 		), array('id'));
 		
-		\DBUtil::create_index('country_state_cities', 'slug', 'slug');
+		\DBUtil::create_index('cities', 'slug', 'slug');
 	}
 
 	function down()
 	{
-		\DBUtil::drop_table('country_state_cities');
+		\DBUtil::drop_table('cities');
 	}
 }

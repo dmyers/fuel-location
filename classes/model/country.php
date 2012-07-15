@@ -14,7 +14,7 @@ class Model_Country extends \Orm\Model
 
 	protected static $_has_many = array(
 		'states' => array(
-			'model_to' => 'Model_CountryState',
+			'model_to' => 'Model_State',
 			'key_from' => 'id',
 			'key_to'   => 'country_id',
 		),
