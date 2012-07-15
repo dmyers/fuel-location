@@ -32,7 +32,7 @@ Run the migrations which will create the table structure in your database.
 
 ### Run task
 
-Run the oil task which will download and import the [MaxMind](http://maxmind.com) cities databases into your databases.
+Run the oil task which will download and import the [MaxMind](http://maxmind.com) cities databases into your database.
 
 	$ php oil r cities
 
@@ -42,7 +42,7 @@ Run the oil task which will download and import the [MaxMind](http://maxmind.com
 $city = Model_CountryStateCity::find_using_slug('us', 'ca', 'san-francisco');
 ```
 
-Or if using the [Fuel-Geolocate](https://github.com/dmyers/fuel-geolocate), you can simply get the visitor's location by their IP.
+Or if using the [Geolocate](https://github.com/dmyers/fuel-geolocate) package, you can simply get the visitor's location by their IP.
 ```php
 $city = Model_CountryStateCity::find_using_ip();
 ```
