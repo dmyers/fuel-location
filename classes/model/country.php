@@ -1,0 +1,22 @@
+<?php
+
+namespace Cities;
+
+class Model_Country extends \Orm\Model
+{
+	protected static $_table_name = 'countries';
+
+	protected static $_properties = array(
+		'id',
+		'code',
+		'name',
+	);
+
+	protected static $_has_many = array(
+		'states' => array(
+			'model_to' => 'Model_CountryState',
+			'key_from' => 'id',
+			'key_to'   => 'country_id',
+		),
+	);
+}
