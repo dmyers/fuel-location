@@ -1,6 +1,6 @@
 # Fuel Location Package
 
-A super simple location package for Fuel.
+A super simple Location package for Fuel.
 
 ## About
 * Version: 1.0.0
