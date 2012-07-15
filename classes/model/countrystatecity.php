@@ -24,18 +24,16 @@ class Model_CountryStateCity extends \Orm\Model
 		),
 	);
 
-	public static function getUsingSlug($country_code, $state_code, $city_name)
+	public static function find_using_slug($country_code, $state_code, $city_name)
 	{
-		$obj = self::find()
+		return self::find()
 			->where('country_code', strtolower($country_code))
 			->where('state_code', strtolower($state_code))
 			->where('slug', $city_name)
 			->get_one();
-		
-		return $obj;
 	}
 
-	public static function getUsingGeo($ip = null)
+	public static function find_using_ip($ip = null)
 	{
 		$geo = \Geolocate::forge($ip ? : \Input::real_ip());
 		
@@ -43,13 +41,11 @@ class Model_CountryStateCity extends \Orm\Model
 			return null;
 		}
 		
-		$obj = self::find()
+		return self::find()
 			->where('country_code', strtolower($geo->country_code))
 			->where('state_code', strtolower($geo->region))
 			->where('name', $geo->city)
 			->get_one();
-		
-		return $obj;
 	}
 
 	public function getLink()
