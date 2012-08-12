@@ -1,7 +1,7 @@
 <?php
 namespace Fuel\Tasks;
 
-class Cities
+class Location
 {
 	public static function run()
 	{
