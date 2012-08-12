@@ -6,7 +6,7 @@ class Create_states
 {
 	function up()
 	{
-		\DBUtil::create_table('states', array(
+		\DBUtil::create_table('location_states', array(
 			'id' => array(
 				'type'           => 'int',
 				'constraint'     => 10,
@@ -30,11 +30,11 @@ class Create_states
 			),
 		), array('id'));
 
-		\DBUtil::create_index('states', array('country_code', 'code'), 'code');
+		\DBUtil::create_index('location_states', array('country_code', 'code'), 'code');
 	}
 
 	function down()
 	{
-		\DBUtil::drop_table('states');
+		\DBUtil::drop_table('location_states');
 	}
 }

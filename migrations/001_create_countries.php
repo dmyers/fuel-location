@@ -6,7 +6,7 @@ class Create_Countries
 {
 	function up()
 	{
-		\DBUtil::create_table('countries', array(
+		\DBUtil::create_table('location_countries', array(
 			'id' => array(
 				'type'           => 'int',
 				'constraint'     => 10,
@@ -22,11 +22,11 @@ class Create_Countries
 			),
 		), array('id'));
 
-		\DBUtil::create_index('countries', 'code', 'code');
+		\DBUtil::create_index('location_countries', 'code', 'code');
 	}
 
 	function down()
 	{
-		\DBUtil::drop_table('countries');
+		\DBUtil::drop_table('location_countries');
 	}
 }

@@ -4,7 +4,7 @@ namespace Location;
 
 class Model_City extends \Orm\Model
 {
-	protected static $_table_name = 'cities';
+	protected static $_table_name = 'location_cities';
 
 	protected static $_properties = array(
 		'id',

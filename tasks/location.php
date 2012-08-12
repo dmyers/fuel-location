@@ -63,7 +63,7 @@ class Location
 				'name' => $name,
 			);
 			
-			\DB::insert('countries')
+			\DB::insert('location_countries')
 				->set($country)
 				->execute();
 		}
@@ -115,7 +115,7 @@ class Location
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
 			$country = \DB::select('id')
-				->from('countries')
+				->from('location_countries')
 				->where('code', $country_code)
 				->limit(1)
 				->execute();
@@ -136,7 +136,7 @@ class Location
 				'name'         => $name,
 			);
 			
-			\DB::insert('states')
+			\DB::insert('location_states')
 				->set($state)
 				->execute();
 		}
@@ -183,7 +183,7 @@ class Location
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
 			$country = \DB::select('id')
-				->from('countries')
+				->from('location_countries')
 				->where('code', $country_code)
 				->limit(1)
 				->execute();
@@ -197,7 +197,7 @@ class Location
 
 			\Cli::write(sprintf('Updating %s (%s)', $name, $state_code), 'green');
 			
-			\DB::update('states')
+			\DB::update('location_states')
 				->where('country_code', $country_code)
 				->where('name', $name)
 				->value('code', $state_code)
@@ -255,7 +255,7 @@ class Location
 			}
 			
 			$country = \DB::select('id')
-				->from('countries')
+				->from('location_countries')
 				->where('code', $country_code)
 				->limit(1)
 				->execute();
@@ -268,7 +268,7 @@ class Location
 			}
 
 			$state = \DB::select('id')
-				->from('states')
+				->from('location_states')
 				->where('country_code', $country_code)
 				->where('code', $state_code)
 				->limit(1)
@@ -284,7 +284,7 @@ class Location
 			$slug = \Inflector::friendly_title($name, '-', true);
 
 			$city = \DB::select('id')
-				->from('cities')
+				->from('location_cities')
 				->where('country_code', $country_code)
 				->where('state_code', $state_code)
 				->where('slug', $slug)
@@ -310,7 +310,7 @@ class Location
 				'slug'         => $slug,
 			);
 			
-			\DB::insert('cities')
+			\DB::insert('location_cities')
 				->set($city)
 				->execute();
 		}
@@ -349,7 +349,7 @@ class Location
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
 			$country = \DB::select('id')
-				->from('countries')
+				->from('location_countries')
 				->where('code', $country_code)
 				->limit(1)
 				->execute();
@@ -370,7 +370,7 @@ class Location
 				'name'         => $name,
 			);
 			
-			\DB::insert('states')
+			\DB::insert('location_states')
 				->set($state)
 				->execute();
 		}

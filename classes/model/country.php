@@ -4,7 +4,7 @@ namespace Location;
 
 class Model_Country extends \Orm\Model
 {
-	protected static $_table_name = 'countries';
+	protected static $_table_name = 'location_countries';
 
 	protected static $_properties = array(
 		'id',

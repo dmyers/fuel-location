@@ -4,7 +4,7 @@ namespace Location;
 
 class Model_State extends \Orm\Model
 {
-	protected static $_table_name = 'states';
+	protected static $_table_name = 'location_states';
 
 	protected static $_properties = array(
 		'id',

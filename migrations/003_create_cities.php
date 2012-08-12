@@ -6,7 +6,7 @@ class Create_cities
 {
 	function up()
 	{
-		\DBUtil::create_table('cities', array(
+		\DBUtil::create_table('location_cities', array(
 			'id' => array(
 				'type'       => 'int',
 				'constraint' => 10,
@@ -37,11 +37,11 @@ class Create_cities
 			),
 		), array('id'));
 		
-		\DBUtil::create_index('cities', 'slug', 'slug');
+		\DBUtil::create_index('location_cities', 'slug', 'slug');
 	}
 
 	function down()
 	{
-		\DBUtil::drop_table('cities');
+		\DBUtil::drop_table('location_cities');
 	}
 }
