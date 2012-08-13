@@ -30,7 +30,7 @@ class Location
 
 	public static function find_city_by_ip($ip = null)
 	{
-		$geo = \Geolocate::forge($ip ? : \Input::real_ip());
+		$geo = \Geolocate::forge($ip);
 		
 		if (!$geo) {
 			return null;
