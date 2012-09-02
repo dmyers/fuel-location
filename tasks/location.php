@@ -73,23 +73,14 @@ class Location
 	{
 		\Cli::write('Starting country states download', 'green');
 
-		$request = \Request::forge('http://www.maxmind.com/app/fips10_4', array('driver' => 'curl'))->execute();
+		$request = \Request::forge('http://dev.maxmind.com/static/maxmind-region-codes.csv', array('driver' => 'curl'))->execute();
 		$response = $request->response();
 
 		if ($response->status == 404) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
-
-		$pos = strpos($response, '<pre>');
-
-		if ($pos === false) {
-			\Cli::write('Cannot find html tag "pre" in response', 'red');
-			return;
-		}
-
-		$response = substr($response, $pos + 5);
-		$response = substr($response, 0, strpos($response, '</pre>'));
+		
 		$response = trim($response);
 		
 		$lines = explode("\n", $response);
@@ -99,11 +90,6 @@ class Location
 
 		foreach ($lines as $key => $line) {
 			$i++;
-
-			if ($i == 1) {
-				\Cli::write('Skipping first line', 'red');
-				continue;
-			}
 			
 			$line = trim($line);
 			$params = str_getcsv($line);
