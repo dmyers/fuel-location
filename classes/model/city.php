@@ -28,7 +28,7 @@ class Model_City extends \Orm\Model
 	{
 		$data = array();
 		$data[] = '';
-		$data[] = $this->state ? $this->state->code : false;
+		$data[] = $this->state ? \Str::lower($this->state->code) : false;
 		$data[] = $this->slug;
 		
 		return implode('/', $data);
