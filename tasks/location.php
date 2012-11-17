@@ -46,7 +46,7 @@ class Location
 			$line = trim($line);
 			$params = str_getcsv($line);
 			
-			$code = strtolower($params[0]);
+			$code = \Str::lower($params[0]);
 			$name = str_replace('"', '', $params[1]);
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $code));
@@ -94,7 +94,7 @@ class Location
 			$line = trim($line);
 			$params = str_getcsv($line);
 			
-			$country_code = strtolower($params[0]);
+			$country_code = \Str::lower($params[0]);
 			$state_code = $params[1];
 			$name = str_replace('"', '', $params[2]);
 
@@ -163,8 +163,8 @@ class Location
 			\Cli::write(sprintf('Loaded city_id (%s)', $city_id), 'green');
 			
 			$name = str_replace('"', '', utf8_encode($params[3]));
-			$country_code = strtolower(str_replace('"', '', $params[1]));
-			$state_code = strtolower(str_replace('"', '', $params[2]));
+			$country_code = \Str::lower(str_replace('"', '', $params[1]));
+			$state_code = \Str::lower(str_replace('"', '', $params[2]));
 			
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
@@ -265,8 +265,8 @@ class Location
 			$params = explode("\t", $line);
 
 			$info = explode('.', $params[0]);
-			$country_code = strtolower($info[0]);
-			$state_code = strtolower($info[1]);
+			$country_code = \Str::lower($info[0]);
+			$state_code = \Str::lower($info[1]);
 			$name = trim($params[1]);
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
