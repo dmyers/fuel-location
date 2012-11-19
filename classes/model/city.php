@@ -17,6 +17,11 @@ class Model_City extends \Orm\Model
 	);
 
 	protected static $_has_one = array(
+		'country' => array(
+			'model_to' => 'Model_Country',
+			'key_from' => 'country_id',
+			'key_to'   => 'id',
+		),
 		'state' => array(
 			'model_to' => 'Model_State',
 			'key_from' => 'state_id',
