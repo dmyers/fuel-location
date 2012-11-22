@@ -24,7 +24,7 @@ class Location
 		return \Model_City::find()
 			->where('country_code', \Str::lower($country_code))
 			->where('state_code', \Str::lower($state_code))
-			->where('slug', $city_name)
+			->where('slug', \Inflector::friendly_title($city_name, '-', true))
 			->get_one();
 	}
 
