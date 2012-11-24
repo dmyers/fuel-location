@@ -29,17 +29,17 @@ class Model_City extends \Orm\Model
 		),
 	);
 
-	public function getLink()
+	public function link()
 	{
 		$data = array();
 		$data[] = '';
-		$data[] = $this->state ? \Str::lower($this->state->code) : false;
+		$data[] = \Str::lower($this->state->code);
 		$data[] = $this->slug;
 		
 		return implode('/', $data);
 	}
 	
-	public function getDisplayName()
+	public function display_name()
 	{
 		return \Inflector::humanize($this->name);
 	}
