@@ -217,11 +217,11 @@ class Location
 			$city = $city[0];
 
 			if ($city) {
-				\Cli::write(sprintf('Already added %s (%s)', $name, $country_code), 'red');
+				\Cli::write(sprintf('Already added %s (%s, %s)', $name, $state_code, $country_code), 'red');
 				continue;
 			}
 
-			\Cli::write(sprintf('Adding %s (%s)', $name, $country_code), 'green');
+			\Cli::write(sprintf('Adding %s (%s, %s)', $name, $state_code, $country_code), 'green');
 
 			$city = array(
 				'id'           => $city_id,
