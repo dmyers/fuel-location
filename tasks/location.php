@@ -15,13 +15,16 @@ class Location
 	{
 		\Cli::write('Starting countries download', 'green');
 
-		$request = \Request::forge('http://www.maxmind.com/app/iso3166', array('driver' => 'curl'))->execute();
-		$response = $request->response();
+		$request = \Request::forge('http://www.maxmind.com/app/iso3166', 'curl');
 
-		if ($response->status == 404) {
+		try {
+			$request->execute();
+		} catch (RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
+
+		$response = $request->response();
 
 		$pos = strpos($response, '<pre>');
 
@@ -73,13 +76,16 @@ class Location
 	{
 		\Cli::write('Starting country states download', 'green');
 
-		$request = \Request::forge('http://dev.maxmind.com/static/maxmind-region-codes.csv', array('driver' => 'curl'))->execute();
-		$response = $request->response();
+		$request = \Request::forge('http://dev.maxmind.com/static/maxmind-region-codes.csv', 'curl');
 
-		if ($response->status == 404) {
+		try {
+			$request->execute();
+		} catch (RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
+
+		$response = $request->response();
 		
 		$response = trim($response);
 		
@@ -132,13 +138,16 @@ class Location
 	{
 		\Cli::write('Starting country state cities download', 'green');
 
-		$request = \Request::forge('http://www.maxmind.com/GeoIPCity-534-Location.csv', array('driver' => 'curl'))->execute();
-		$response = $request->response();
+		$request = \Request::forge('http://www.maxmind.com/GeoIPCity-534-Location.csv', 'curl');
 
-		if ($response->status == 404) {
+		try {
+			$request->execute();
+		} catch (RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
+
+		$response = $request->response();
 		
 		$response = trim($response);
 
@@ -243,13 +252,16 @@ class Location
 	{
 		\Cli::write('Starting country states download', 'green');
 
-		$request = \Request::forge('http://download.geonames.org/export/dump/admin1CodesASCII.txt', array('driver' => 'curl'))->execute();
-		$response = $request->response();
+		$request = \Request::forge('http://download.geonames.org/export/dump/admin1CodesASCII.txt', 'curl');
 
-		if ($response->status == 404) {
+		try {
+			$request->execute();
+		} catch (RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
+
+		$response = $request->response();
 
 		$response = trim($response);
 		
