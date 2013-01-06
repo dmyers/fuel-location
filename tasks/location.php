@@ -15,16 +15,7 @@ class Location
 	{
 		\Cli::write('Starting countries download', 'green');
 
-		$request = \Request::forge('http://www.maxmind.com/app/iso3166', 'curl');
-
-		try {
-			$request->execute();
-		} catch (\RequestException $e) {
-			\Cli::write('Failed to load page', 'red');
-			return;
-		}
-
-		$response = $request->response();
+		$response = self::request('http://www.maxmind.com/app/iso3166');
 
 		$pos = strpos($response, '<pre>');
 
@@ -76,16 +67,7 @@ class Location
 	{
 		\Cli::write('Starting country states download', 'green');
 
-		$request = \Request::forge('http://dev.maxmind.com/static/maxmind-region-codes.csv', 'curl');
-
-		try {
-			$request->execute();
-		} catch (\RequestException $e) {
-			\Cli::write('Failed to load page', 'red');
-			return;
-		}
-
-		$response = $request->response();
+		$response = self::request('http://dev.maxmind.com/static/maxmind-region-codes.csv');
 		
 		$response = trim($response);
 		
@@ -138,16 +120,7 @@ class Location
 	{
 		\Cli::write('Starting country state cities download', 'green');
 
-		$request = \Request::forge('http://www.maxmind.com/GeoIPCity-534-Location.csv', 'curl');
-
-		try {
-			$request->execute();
-		} catch (\RequestException $e) {
-			\Cli::write('Failed to load page', 'red');
-			return;
-		}
-
-		$response = $request->response();
+		$response = self::request('http://www.maxmind.com/GeoIPCity-534-Location.csv');
 		
 		$response = trim($response);
 
@@ -252,16 +225,7 @@ class Location
 	{
 		\Cli::write('Starting country states download', 'green');
 
-		$request = \Request::forge('http://download.geonames.org/export/dump/admin1CodesASCII.txt', 'curl');
-
-		try {
-			$request->execute();
-		} catch (\RequestException $e) {
-			\Cli::write('Failed to load page', 'red');
-			return;
-		}
-
-		$response = $request->response();
+		$response = self::request('http://download.geonames.org/export/dump/admin1CodesASCII.txt');
 
 		$response = trim($response);
 		
@@ -309,5 +273,24 @@ class Location
 				->set($state)
 				->execute();
 		}
+	}
+
+	protected static function request($url)
+	{
+		$request = \Request::forge($url, 'curl');
+		$request->set_options(array(
+			'timeout' => 60,
+		));
+
+		try {
+			$request->execute();
+		} catch (\RequestException $e) {
+			\Cli::error("Failed to load url ($url)");
+			return;
+		}
+
+		$response = $request->response();
+
+		return $response;
 	}
 }
