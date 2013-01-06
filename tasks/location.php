@@ -19,7 +19,7 @@ class Location
 
 		try {
 			$request->execute();
-		} catch (RequestException $e) {
+		} catch (\RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
@@ -80,7 +80,7 @@ class Location
 
 		try {
 			$request->execute();
-		} catch (RequestException $e) {
+		} catch (\RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
@@ -142,7 +142,7 @@ class Location
 
 		try {
 			$request->execute();
-		} catch (RequestException $e) {
+		} catch (\RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
@@ -256,7 +256,7 @@ class Location
 
 		try {
 			$request->execute();
-		} catch (RequestException $e) {
+		} catch (\RequestException $e) {
 			\Cli::write('Failed to load page', 'red');
 			return;
 		}
