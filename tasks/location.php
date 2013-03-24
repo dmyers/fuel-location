@@ -291,11 +291,18 @@ class Location
 			
 			$line = trim($line);
 			$params = explode("\t", $line);
-
-			$info = explode('.', $params[0]);
-			$country_code = \Str::lower($info[0]);
-			$state_code = \Str::lower($info[1]);
-			$name = trim($params[1]);
+			
+			if (count($params) != 4) {
+				continue;
+			}
+			
+			list($admin1_code, $admin1_name, $admin1_name_ascii, $geoname_id) = $params;
+			
+			$id = trim($geoname_id);
+			$info = explode('.', $admin1_code);
+			$country_code = trim(\Str::lower($info[0]));
+			$state_code = trim(\Str::lower($info[1]));
+			$name = trim($admin1_name);
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
@@ -315,6 +322,7 @@ class Location
 			\Cli::write(sprintf('Adding %s (%s)', $name, $state_code), 'green');
 
 			$state = array(
+				'id'           => $id,
 				'code'         => $state_code,
 				'country_code' => $country_code,
 				'country_id'   => $country['id'],
