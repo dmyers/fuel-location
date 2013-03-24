@@ -380,7 +380,116 @@ class Location
 	
 	public static function cities_geonames()
 	{
+		$path =  APPPATH . 'tmp' . DS;
+		$database_path = $path . 'cities5000';
+
+		$command = "curl -s http://download.geonames.org/export/dump/cities5000.zip > $database_path.gz";
+
+		exec($command);
+
+		if (file_exists($database_path)) {
+			exec('rm '.$database_path);
+		}
+
+		if (file_exists($database_path.'.zip')) {
+			exec('unzip '.$database_path.'.zip');
+		}
 		
+		$response = file_get_contents($database_path.'.txt');
+		
+		unlink($database_path.'.txt');
+		
+		$response = trim($response);
+		
+		$lines = explode("\n", $response);
+
+		$total = count($lines);
+		$i = 0;
+
+		foreach ($lines as $key => $line) {
+			$i++;
+			
+			$line = trim($line);
+			$params = explode("\t", $line);
+			
+			if (count($params) != 19) {
+				continue;
+			}
+			
+			list($geoname_id, $name, $asciiname, $alternate_names, $latitude, $longitude, $feature_class, $feature_code, $country_code, $cc2, $admin1_code, $admin2_code, $admin3_code, $admin4_code, $population, $elevation, $gtopo30, $timezone, $modification_date) = $params;
+			
+			$id = trim($geoname_id);
+			$country_code = trim(\Str::lower($country_code));
+			$state_code = trim(\Str::lower($admin1_code));
+			$name = trim($name);
+
+			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
+
+			if (empty($name) || empty($country_code) || empty($state_code)) {
+				\Cli::write(sprintf('Missing name,country_code,state_code (%s, %s, %s)', $name, $country_code, $state_code), 'red');
+				continue;
+			}
+			
+			$country = \DB::select('id')
+				->from('location_countries')
+				->where('code', $country_code)
+				->limit(1)
+				->execute();
+
+			$country = $country[0];
+
+			if (!$country) {
+				\Cli::write(sprintf('Country not found for code (%s)', $country_code), 'red');
+				continue;
+			}
+
+			$state = \DB::select('id')
+				->from('location_states')
+				->where('country_code', $country_code)
+				->where('code', $state_code)
+				->limit(1)
+				->execute();
+
+			$state = $state[0];
+
+			if (!$state) {
+				\Cli::write(sprintf('State not found for state,country code (%s, %s)', $state_code, $country_code), 'red');
+				continue;
+			}
+
+			$slug = \Inflector::friendly_title($name, '-', true);
+
+			$city = \DB::select('id')
+				->from('location_cities')
+				->where('country_code', $country_code)
+				->where('state_code', $state_code)
+				->where('slug', $slug)
+				->limit(1)
+				->execute();
+
+			$city = $city[0];
+
+			if ($city) {
+				\Cli::write(sprintf('Already added %s (%s, %s)', $name, $state_code, $country_code), 'red');
+				continue;
+			}
+
+			\Cli::write(sprintf('Adding %s (%s, %s)', $name, $state_code, $country_code), 'green');
+
+			$city = array(
+				'id'           => $geoname_id,
+				'country_code' => $country_code,
+				'country_id'   => $country['id'],
+				'state_code'   => $state_code,
+				'state_id'     => $state['id'],
+				'name'         => $name,
+				'slug'         => $slug,
+			);
+			
+			\DB::insert('location_cities')
+				->set($city)
+				->execute();
+		}
 	}
 
 	protected static function request($url)
