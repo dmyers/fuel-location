@@ -5,13 +5,13 @@ class Location
 {
 	public static function run()
 	{
-		self::countries();
-		self::states();
-		self::cities();
+		self::countries_maxmind();
+		self::states_maxmind();
+		self::cities_maxmind();
 		\Cli::write('Done!', 'green');
 	}
 
-	public static function countries()
+	public static function countries_maxmind()
 	{
 		\Cli::write('Starting countries download', 'green');
 
@@ -63,7 +63,7 @@ class Location
 		}
 	}
 
-	public static function states()
+	public static function states_maxmind()
 	{
 		\Cli::write('Starting country states download', 'green');
 
@@ -116,7 +116,7 @@ class Location
 		}
 	}
 
-	public static function cities()
+	public static function cities_maxmind()
 	{
 		\Cli::write('Starting country state cities download', 'green');
 
