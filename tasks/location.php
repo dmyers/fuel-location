@@ -134,7 +134,7 @@ class Location
 			$params = str_getcsv($line);
 			
 			$country_code = \Str::lower($params[0]);
-			$state_code = $params[1];
+			$state_code = \Str::lower($params[1]);
 			$name = str_replace('"', '', $params[2]);
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
