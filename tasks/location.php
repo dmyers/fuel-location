@@ -272,7 +272,50 @@ class Location
 	
 	public static function countries_geonames()
 	{
+		$response = self::request('http://download.geonames.org/export/dump/countryInfo.txt');
+
+		$response = trim($response);
 		
+		$lines = explode("\n", $response);
+
+		$total = count($lines);
+		$i = 0;
+
+		foreach ($lines as $key => $line) {
+			$i++;
+			
+			$line = trim($line);
+			
+			if (substr($line, 0, 1) == '#') {
+				continue;
+			}
+			
+			$params = explode("\t", $line);
+			
+			if (count($params) != 19) {
+				continue;
+			}
+			
+			list($iso, $iso3, $iso_numeric, $fips, $country, $capital, $area_in_sqkm, $population, $continent, $tld, $currency_code, $currency_name, $phone, $postal_code_format, $postal_code_regex, $languages, $geoname_id, $neighbors, $equivalentfipscode) = $params;
+			
+			$id = trim($geoname_id);
+			$code = trim(\Str::lower($iso));
+			$name = trim($country);
+
+			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
+
+			\Cli::write(sprintf('Adding %s (%s)', $name, $code), 'green');
+
+			$country = array(
+				'id'   => $id,
+				'code' => $code,
+				'name' => $name,
+			);
+			
+			\DB::insert('location_countries')
+				->set($country)
+				->execute();
+		}
 	}
 	
 	public static function states_geonames()
