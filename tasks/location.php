@@ -3,18 +3,71 @@ namespace Fuel\Tasks;
 
 class Location
 {
-	public static function run()
+	public static function run($provider = 'maxmind')
 	{
-		self::countries_maxmind();
-		self::states_maxmind();
-		self::cities_maxmind();
+		self::countries($provider);
+		self::states($provider);
+		self::cities($provider);
+		
 		\Cli::write('Done!', 'green');
+	}
+	
+	public static function countries($provider = 'maxmind')
+	{
+		\Cli::write('Starting countries download', 'green');
+		
+		switch ($provider) {
+			case 'maxmind':
+				self::countries_maxmind();
+				break;
+			case 'geonames':
+				self::countries_geonames();
+				break;
+			default:
+				\Cli::error('Unknown provider given');
+				return;
+				break;
+		}
+	}
+	
+	public static function states($provider = 'maxmind')
+	{
+		\Cli::write('Starting country states download', 'green');
+		
+		switch ($provider) {
+			case 'maxmind':
+				self::states_maxmind();
+				break;
+			case 'geonames':
+				self::states_geonames();
+				break;
+			default:
+				\Cli::error('Unknown provider given');
+				return;
+				break;
+		}
+	}
+	
+	public static function cities($provider = 'maxmind')
+	{
+		\Cli::write('Starting country state cities download', 'green');
+		
+		switch ($provider) {
+			case 'maxmind':
+				self::cities_maxmind();
+				break;
+			case 'geonames':
+				self::cities_geonames();
+				break;
+			default:
+				\Cli::error('Unknown provider given');
+				return;
+				break;
+		}
 	}
 
 	public static function countries_maxmind()
 	{
-		\Cli::write('Starting countries download', 'green');
-
 		$response = self::request('http://www.maxmind.com/app/iso3166');
 
 		$pos = strpos($response, '<pre>');
@@ -65,8 +118,6 @@ class Location
 
 	public static function states_maxmind()
 	{
-		\Cli::write('Starting country states download', 'green');
-
 		$response = self::request('http://dev.maxmind.com/static/maxmind-region-codes.csv');
 		
 		$response = trim($response);
@@ -118,8 +169,6 @@ class Location
 
 	public static function cities_maxmind()
 	{
-		\Cli::write('Starting country state cities download', 'green');
-
 		$response = self::request('http://www.maxmind.com/GeoIPCity-534-Location.csv');
 		
 		$response = trim($response);
@@ -220,11 +269,14 @@ class Location
 				->execute();
 		}
 	}
-
+	
+	public static function countries_geonames()
+	{
+		
+	}
+	
 	public static function states_geonames()
 	{
-		\Cli::write('Starting country states download', 'green');
-
 		$response = self::request('http://download.geonames.org/export/dump/admin1CodesASCII.txt');
 
 		$response = trim($response);
@@ -273,6 +325,11 @@ class Location
 				->set($state)
 				->execute();
 		}
+	}
+	
+	public static function cities_geonames()
+	{
+		
 	}
 
 	protected static function request($url)
