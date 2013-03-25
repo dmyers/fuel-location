@@ -95,6 +95,11 @@ class Location
 			
 			$code = \Str::lower($params[0]);
 			$name = str_replace('"', '', $params[1]);
+			
+			if (empty($name) || empty($code)) {
+				\Cli::error(sprintf('Missing name,code (%s, %s)', $name, $code));
+				continue;
+			}
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $code));
 
@@ -301,8 +306,13 @@ class Location
 			$id = trim($geoname_id);
 			$code = trim(\Str::lower($iso));
 			$name = trim($country);
+			
+			if (empty($id) || empty($name) || empty($code)) {
+				\Cli::error(sprintf('Missing id,name,code (%s, %s, %s)', $id, $name, $code));
+				continue;
+			}
 
-			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
+			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $code));
 
 			\Cli::write(sprintf('Adding %s (%s)', $name, $code), 'green');
 
