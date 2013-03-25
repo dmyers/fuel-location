@@ -141,6 +141,11 @@ class Location
 			$country_code = \Str::lower($params[0]);
 			$state_code = \Str::lower($params[1]);
 			$name = str_replace('"', '', $params[2]);
+			
+			if (empty($name) || empty($country_code) || empty($state_code)) {
+				\Cli::error(sprintf('Missing name,country_code,state_code (%s, %s, %s)', $name, $country_code, $state_code));
+				continue;
+			}
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
@@ -356,6 +361,11 @@ class Location
 			$country_code = trim(\Str::lower($info[0]));
 			$state_code = trim(\Str::lower($info[1]));
 			$name = trim($admin1_name);
+			
+			if (empty($id) || empty($name) || empty($country_code) || empty($state_code)) {
+				\Cli::error(sprintf('Missing id,name,country_code,state_code (%s, %s, %s, %s)', $id, $name, $country_code, $state_code));
+				continue;
+			}
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
