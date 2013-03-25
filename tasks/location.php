@@ -68,17 +68,8 @@ class Location
 
 	public static function countries_maxmind()
 	{
-		$response = self::request('http://www.maxmind.com/app/iso3166');
-
-		$pos = strpos($response, '<pre>');
-
-		if ($pos === false) {
-			\Cli::write('Cannot find html tag "pre" in response', 'red');
-			return;
-		}
-
-		$response = substr($response, $pos + 5);
-		$response = substr($response, 0, strpos($response, '</pre>'));
+		$response = self::request('http://dev.maxmind.com/static/csv/codes/iso3166.csv');
+		
 		$response = trim($response);
 		
 		$lines = explode("\n", $response);
