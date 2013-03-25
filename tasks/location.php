@@ -284,8 +284,6 @@ class Location
 	{
 		$response = self::request('http://download.geonames.org/export/dump/countryInfo.txt');
 
-		$response = trim($response);
-		
 		$lines = explode("\n", $response);
 
 		$total = count($lines);
@@ -293,8 +291,6 @@ class Location
 
 		foreach ($lines as $key => $line) {
 			$i++;
-			
-			$line = trim($line);
 			
 			if (substr($line, 0, 1) == '#') {
 				continue;
@@ -337,8 +333,6 @@ class Location
 	{
 		$response = self::request('http://download.geonames.org/export/dump/admin1CodesASCII.txt');
 
-		$response = trim($response);
-		
 		$lines = explode("\n", $response);
 
 		$total = count($lines);
@@ -347,7 +341,6 @@ class Location
 		foreach ($lines as $key => $line) {
 			$i++;
 			
-			$line = trim($line);
 			$params = explode("\t", $line);
 			
 			if (count($params) != 4) {
@@ -419,8 +412,6 @@ class Location
 		
 		unlink($database_path.'.txt');
 		
-		$response = trim($response);
-		
 		$lines = explode("\n", $response);
 
 		$total = count($lines);
@@ -429,7 +420,6 @@ class Location
 		foreach ($lines as $key => $line) {
 			$i++;
 			
-			$line = trim($line);
 			$params = explode("\t", $line);
 			
 			if (count($params) != 19) {
