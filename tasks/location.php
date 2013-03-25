@@ -445,8 +445,8 @@ class Location
 
 			\Cli::write(sprintf('Processing %d of %d - %s', $i, $total, $name));
 
-			if (empty($name) || empty($country_code) || empty($state_code)) {
-				\Cli::write(sprintf('Missing name,country_code,state_code (%s, %s, %s)', $name, $country_code, $state_code), 'red');
+			if (empty($id) || empty($name) || empty($country_code) || empty($state_code)) {
+				\Cli::write(sprintf('Missing id,name,country_code,state_code (%s, %s, %s, %s)', $id, $name, $country_code, $state_code), 'red');
 				continue;
 			}
 			
