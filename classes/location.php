@@ -12,14 +12,14 @@ class Location
 			return self::$active;
 		}
 		
-		$city_id = Session::get('location');
+		$city_id = \Session::get('location');
 
 		if ($city_id === false) {
 			return false;
 		}
 		
 		if ($city_id) {
-			$city = Model_City::find($city_id);
+			$city = \Model_City::find($city_id);
 
 			if ($city) {
 				self::$active = $city;
@@ -34,21 +34,21 @@ class Location
 				return false;
 			}
 			
-			Session::set('location', $location->id);
+			\Session::set('location', $location->id);
 
 			self::$active = $location;
 
 			return $location;
 		}
 
-		Session::set('location', false);
+		\Session::set('location', false);
 		
 		return false;
 	}
 
 	public static function set_active(Model_City $city)
 	{
-		Session::set('location', $city->id);
+		\Session::set('location', $city->id);
 
 		self::$active = $city;
 	}
