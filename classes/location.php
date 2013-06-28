@@ -4,6 +4,55 @@ namespace Location;
 
 class Location
 {
+	protected static $active;
+
+	public static function active()
+	{
+		if (self::$active !== null) {
+			return self::$active;
+		}
+		
+		$city_id = Session::get('location');
+
+		if ($city_id === false) {
+			return false;
+		}
+		
+		if ($city_id) {
+			$city = Model_City::find($city_id);
+
+			if ($city) {
+				self::$active = $city;
+				
+				return $city;
+			}
+		} else {
+			$location = self::find_city_by_ip();
+		
+			if (!$location) {
+				Log::error('Unable to find location by ip');
+				return false;
+			}
+			
+			Session::set('location', $location->id);
+
+			self::$active = $location;
+
+			return $location;
+		}
+
+		Session::set('location', false);
+		
+		return false;
+	}
+
+	public static function set_active(Model_City $city)
+	{
+		Session::set('location', $city->id);
+
+		self::$active = $city;
+	}
+	
 	public static function find_country($country_code)
 	{
 		return \Model_Country::query()
