@@ -25,7 +25,6 @@ class Location
 				break;
 			default:
 				\Cli::error('Unknown provider given');
-				return;
 				break;
 		}
 	}
@@ -43,7 +42,6 @@ class Location
 				break;
 			default:
 				\Cli::error('Unknown provider given');
-				return;
 				break;
 		}
 	}
@@ -61,7 +59,6 @@ class Location
 				break;
 			default:
 				\Cli::error('Unknown provider given');
-				return;
 				break;
 		}
 	}
@@ -397,6 +394,11 @@ class Location
 
 		if (file_exists($database_path.'.zip')) {
 			exec('unzip '.$database_path.'.zip');
+		}
+		
+		if (!file_exists($database_path.'.txt')) {
+			\Cli::write('Error downloading cities db', 'red');
+			return;
 		}
 		
 		$response = file_get_contents($database_path.'.txt');
