@@ -393,7 +393,7 @@ class Location
 		}
 
 		if (file_exists($database_path.'.zip')) {
-			exec('unzip '.$database_path.'.zip');
+			exec('unzip -d '.$path.' '.$database_path.'.zip');
 		}
 		
 		if (!file_exists($database_path.'.txt')) {
