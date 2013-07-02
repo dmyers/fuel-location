@@ -384,7 +384,7 @@ class Location
 		$path =  APPPATH . 'tmp' . DS;
 		$database_path = $path . 'cities5000';
 
-		$command = "curl -s http://download.geonames.org/export/dump/cities5000.zip > $database_path.gz";
+		$command = "curl -s http://download.geonames.org/export/dump/cities5000.zip > $database_path.zip";
 
 		exec($command);
 
