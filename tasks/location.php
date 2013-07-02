@@ -388,10 +388,6 @@ class Location
 
 		exec($command);
 
-		if (file_exists($database_path)) {
-			exec('rm '.$database_path);
-		}
-
 		if (file_exists($database_path.'.zip')) {
 			exec('unzip -d '.$path.' '.$database_path.'.zip');
 		}
