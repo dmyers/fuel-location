@@ -498,6 +498,7 @@ class Location
 	protected static function request($url)
 	{
 		$request = \Request::forge($url, 'curl');
+		$request->set_auto_format(false);
 		$request->set_options(array(
 			'timeout' => 60,
 		));
