@@ -32,7 +32,7 @@ Run the migrations which will create the table structure in your database.
 
 ### Run task
 
-Run the oil task which will download and import the [MaxMind](http://maxmind.com) location databases into your database.
+Run the oil task which will download and import the [MaxMind](http://maxmind.com) location databases into your local database.
 
 	$ php oil r location
 
