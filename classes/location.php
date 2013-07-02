@@ -30,7 +30,7 @@ class Location
 			$location = self::find_city_by_ip();
 		
 			if (!$location) {
-				Log::error('Unable to find location by ip');
+				\Log::error('Unable to find location by ip');
 				return false;
 			}
 			
