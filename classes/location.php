@@ -30,7 +30,6 @@ class Location
 			$location = self::find_city_by_ip();
 		
 			if (!$location) {
-				\Log::error('Unable to find location by ip');
 				return false;
 			}
 			
@@ -82,6 +81,8 @@ class Location
 		$geo = \Geolocate::forge($ip);
 		
 		if (!$geo) {
+			$ip_address = \Config::get('geolocate.fake_ip', \Input::real_ip());
+			\Log::error(sprintf('Unable to find location by ip (%s)', $ip_address));
 			return null;
 		}
 		
