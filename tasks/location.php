@@ -379,12 +379,12 @@ class Location
 		}
 	}
 	
-	public static function cities_geonames()
+	public static function cities_geonames($city_db = 'cities5000')
 	{
 		$path =  APPPATH . 'tmp' . DS;
-		$database_path = $path . 'cities5000';
+		$database_path = $path . $city_db;
 
-		$command = "curl -s http://download.geonames.org/export/dump/cities5000.zip > $database_path.zip";
+		$command = "curl -s http://download.geonames.org/export/dump/$city_db.zip > $database_path.zip";
 
 		exec($command);
 
