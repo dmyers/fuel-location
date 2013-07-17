@@ -28,19 +28,4 @@ class Model_City extends \Orm\Model
 			'key_to'   => 'id',
 		),
 	);
-
-	public function link()
-	{
-		$data = array();
-		$data[] = '';
-		$data[] = \Str::lower($this->state->code);
-		$data[] = $this->slug;
-		
-		return implode('/', $data);
-	}
-	
-	public function display_name()
-	{
-		return \Inflector::humanize($this->name);
-	}
 }
