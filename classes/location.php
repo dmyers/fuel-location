@@ -45,7 +45,7 @@ class Location
 		return false;
 	}
 
-	public static function set_active(Model_City $city)
+	public static function set_active(\Model_City $city)
 	{
 		\Session::set('location', $city->id);
 
