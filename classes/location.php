@@ -76,12 +76,13 @@ class Location
 			->get_one();
 	}
 
-	public static function find_city_by_ip($ip = null)
+	public static function find_city_by_ip($ip_address = null)
 	{
-		$geo = \Geolocate::forge($ip);
+		$geo = \Geolocate::forge($ip_address);
 		
 		if (!$geo) {
-			$ip_address = \Config::get('geolocate.fake_ip', \Input::real_ip());
+			$ip_address = empty($ip_address) ? \Input::real_ip() : $ip_address;
+			$ip_address = \Config::get('geolocate.fake_ip', $ip_address);
 			\Log::error(sprintf('Unable to find location by ip (%s)', $ip_address));
 			return null;
 		}
