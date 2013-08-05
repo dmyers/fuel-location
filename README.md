@@ -19,7 +19,7 @@ Then you you need to initialize and update the submodule:
 
 	$ git submodule update --init --recursive fuel/packages/location/
 
-###Download
+### Download
 
 Alternatively you can download it and extract it into `fuel/packages/location/`.
 
