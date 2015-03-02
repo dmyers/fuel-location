@@ -45,7 +45,7 @@ $state = Location::find_state('us', 'ca');
 $city = Location::find_city('us', 'ca', 'san-francisco');
 ```
 
-Or if using the [Geolocate](https://github.com/wingdspur/fuel-geolocate) package, you can simply get the visitor's location by their IP.
+Or if using the [Geolocate](https://github.com/dmyers/fuel-geolocate) package, you can simply get the visitor's location by their IP.
 ```php
 $city = Location::find_city_by_ip();
 ```
